@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "2.0",
+    "version": "2.1",
     "based_on": "bufab.com live site analysis + original draft guidelines",
     "design_language": "Scandinavian Industrial Corporate",
     "reference_site": "https://www.bufab.com/en/start"
@@ -35,23 +35,31 @@
 
       "header": {
         "purpose": "Primary navigation and brand anchor",
-        "fields": ["logo", "primary-navigation", "cta-button"],
-        "scroll_behavior": {
-          "background": "always #0D3349 — no color change on scroll",
-          "position": "sticky",
-          "note": "Header background does NOT change to white on scroll. Primary color is maintained at all scroll positions."
-        },
-        "rules": [
-          "background: color.primary (#0D3349) — fixed, does not change on scroll",
-          "logo: left-aligned, white variant always (background never changes)",
-          "primary-navigation: horizontal, right-aligned, no hamburger on desktop",
-          "navigation items: 15px, weight 500, color white, with dropdown support",
-          "cta-button: 'Contact us', accent orange (#E8610A), right-aligned, border-radius 0px",
-          "height: 64px",
-          "position: sticky, top: 0, z-index: 100",
-          "border-bottom: 1px solid rgba(255,255,255,0.1) — subtle separator on scroll"
+        "background": "#1f3c46",
+        "height": "64px",
+        "position": "sticky, top: 0, z-index: 100",
+        "border_bottom": "1px solid rgba(255,255,255,0.1)",
+        "scroll_behavior": "background always #1f3c46 — no color change on scroll",
+        "items_left_to_right": [
+          { "type": "logo", "variant": "white", "href": "/" },
+          { "type": "nav-link", "label": "Insights", "has_dropdown": true },
+          { "type": "nav-link", "label": "Solutions", "has_dropdown": true },
+          { "type": "nav-link", "label": "Products", "has_dropdown": false, "disabled": true },
+          { "type": "nav-link", "label": "Industries", "has_dropdown": false, "disabled": true },
+          { "type": "nav-link", "label": "Customers", "has_dropdown": false, "disabled": true },
+          { "type": "nav-link", "label": "Sustainability", "has_dropdown": false, "disabled": true },
+          { "type": "spacer" },
+          { "type": "cta-button", "label": "Contact us", "background": "#E8610A", "color": "#FFFFFF", "border_radius": "0px" },
+          { "type": "language-switcher", "label": "Global - EN", "has_dropdown": true }
         ],
-        "implementation_note": "Use a single CSS rule: `header { background: #0D3349; position: sticky; top: 0; }`. Do NOT add scroll listeners that swap background color. If a previous implementation used JavaScript to toggle a class on scroll (e.g. .scrolled, .white-header), remove it entirely."
+        "nav_link_style": {
+          "font_size": "15px",
+          "font_weight": 500,
+          "color": "#FFFFFF",
+          "disabled_color": "rgba(255,255,255,0.45)",
+          "disabled_pointer_events": "none"
+        },
+        "implementation_note": "Use a single CSS rule: `header { background: #1f3c46; position: sticky; top: 0; }`. Do NOT add scroll listeners that swap background color."
       },
 
       "hero": {
@@ -69,10 +77,9 @@
           "dark overlay on background image (rgba 0,0,0,0.45 min)",
           "background: real industrial photography, full-cover",
           "min-height: 480px",
-          "NO centered layout",
-          "NO subtitle field — use body paragraph instead",
-          "NO multiple CTAs",
-          "NO hero without a background image"
+          "no centered layout",
+          "no multiple CTAs",
+          "requires a background image"
         ]
       },
 
@@ -90,9 +97,9 @@
             },
             "rules": [
               "no card or container wrapping either element",
-              "H2 heading: 28-32px, weight 600",
+              "H2 heading: 28-32px, weight 600, color #325c6d",
               "body: 2-4 sentences, 16px",
-              "text-link (not button): arrow → prefix, color primary, underline on hover",
+              "text-link (not button): arrow prefix, color primary, underline on hover",
               "image: real photography or technical SVG diagram only",
               "image aspect ratio: 4:3 or 16:9",
               "no border radius on image",
@@ -106,14 +113,13 @@
             "column_fields": ["label", "description"],
             "layout": {
               "columns": "3 or 4",
-              "separator": "1px vertical rule, color border (#D0D7DE)",
+              "separator": "1px vertical rule, color #D0D7DE",
               "no_cards": true,
-              "no_icons": true,
-              "no_background_fill_per_column": true
+              "no_icons": true
             },
             "rules": [
-              "section-heading: H2, left-aligned or centered, above columns",
-              "column label: 16-18px, weight 600, color text-primary",
+              "section-heading: H2, left-aligned or centered, above columns, color #325c6d",
+              "column label: 16-18px, weight 600, color #325c6d",
               "column description: 15px, weight 400, color text-secondary",
               "max 4 columns per row",
               "separator is a thin vertical line, not spacing or card boundaries"
@@ -128,6 +134,7 @@
               "text_position": "left side"
             },
             "rules": [
+              "heading: H2, color #325c6d",
               "diagram must be SVG or high-res technical illustration",
               "bullet list: max 4 items, action-oriented phrasing (verb + noun)",
               "no decorative icons in bullets — plain list markers only",
@@ -142,11 +149,11 @@
             "tile_fields": ["image", "industry-name", "short-description"],
             "layout": {
               "columns": "3 or 4",
-              "tile_style": "image with text overlay OR image above text",
-              "tiles_allowed": true
+              "tile_style": "image with text overlay OR image above text"
             },
             "rules": [
               "ONLY section type where tile/card layout is permitted",
+              "section-heading: H2, color #325c6d",
               "industry-name: 15px, weight 600",
               "short-description: 13px, weight 400, optional",
               "image: real photography of relevant industry context",
@@ -160,14 +167,15 @@
             "fields": ["section-heading", "section-intro", "article-links", "explore-all-link"],
             "article_fields": ["article-title"],
             "layout": {
-              "style": "plain text list — NO cards, NO thumbnails, NO dates visible",
+              "style": "plain text list — no cards, no thumbnails, no dates visible",
               "columns": "1 (stacked) or 2 (if 6+ articles)",
               "article_count": "4-6 items"
             },
             "rules": [
-              "article-title: H3 weight (18-20px, weight 600), plain link, underline on hover",
-              "NO thumbnail images in list view",
-              "NO card backgrounds per article",
+              "section-heading: H2, color #325c6d",
+              "article-title: 18-20px, weight 600, plain link, underline on hover",
+              "no thumbnail images in list view",
+              "no card backgrounds per article",
               "explore-all-link: text link, not button",
               "section-intro: optional, 1-2 sentences, 15px"
             ]
@@ -178,13 +186,13 @@
             "fields": ["statement", "cta-button"],
             "layout": {
               "alignment": "left OR centered",
-              "background": "surface-alt (#F4F6F8)"
+              "background": "#F4F6F8"
             },
             "rules": [
-              "statement: 1 sentence, 20-24px, weight 500",
-              "single CTA button, accent orange",
+              "statement: 1 sentence, 20-24px, weight 500, color #325c6d",
+              "single CTA button, accent orange (#E8610A)",
               "no image",
-              "no heading hierarchy — this is a punctuation section, not a feature section",
+              "no heading hierarchy",
               "padding: 48px vertical"
             ]
           }
@@ -193,21 +201,22 @@
 
       "footer": {
         "purpose": "Navigation, legal, and contact reference",
-        "fields": ["logo", "column-groups", "bottom-bar"],
+        "background": "#325c6d",
+        "fields": ["column-groups", "bottom-bar"],
         "column_groups": [
           { "heading": "Explore", "links": ["Insights", "Products", "Solutions", "Customers", "Standard parts webshop"] },
           { "heading": "Get in touch", "links": ["Find us", "Talk to an expert", "Request a quote", "Request support"] },
           { "heading": "Bufab", "links": ["Suppliers", "Careers", "History", "Investors", "Policies", "Certificates"] },
           { "heading": "Follow us", "links": ["Facebook", "LinkedIn"] }
         ],
-        "bottom-bar": ["Privacy", "Cookies", "Cookie settings", "Copyright notice", "Company address"],
+        "bottom_bar": ["Privacy", "Cookies", "Cookie settings", "Copyright notice", "Company address"],
         "rules": [
-          "background: color.primary (#0D3349)",
+          "background: #325c6d",
           "text: white, 13px, weight 400",
-          "column headings: 13px, weight 600, uppercase, color rgba(255,255,255,0.6)",
+          "column headings: 12px, weight 600, uppercase, color rgba(255,255,255,0.6), letter-spacing 0.06em",
           "4-column layout on desktop, stacked on mobile",
-          "bottom bar: thin top border, 11px text, muted",
-          "logo: white variant, top-left of footer or above columns",
+          "bottom bar: thin top border (1px solid rgba(255,255,255,0.15)), 11px text, muted",
+          "no logo",
           "no decorative elements"
         ]
       }
@@ -216,8 +225,9 @@
     "style": {
 
       "colors": {
-        "primary": "#0D3349",
+        "primary": "#1f3c46",
         "accent": "#E8610A",
+        "title": "#325c6d",
         "background": "#FFFFFF",
         "surface-alt": "#F4F6F8",
         "text-primary": "#1A1A1A",
@@ -230,10 +240,10 @@
 
       "typography": {
         "font_stack": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-        "no_web_fonts": "intentional — use system stack for speed and authenticity",
+        "note": "No web fonts — use system stack for speed and authenticity",
         "scale": {
           "h1": { "size": "42px", "weight": 600, "line_height": 1.2 },
-          "h2": { "size": "30px", "weight": 600, "line_height": 1.3 },
+          "h2": { "size": "30px", "weight": 600, "line_height": 1.3, "color": "#325c6d" },
           "h3": { "size": "19px", "weight": 600, "line_height": 1.4 },
           "body": { "size": "16px", "weight": 400, "line_height": 1.65 },
           "body-small": { "size": "14px", "weight": 400, "line_height": 1.6 },
@@ -248,21 +258,18 @@
         "section_vertical_padding": "64px",
         "inner_content_gap": "40px",
         "column_gap": "24px",
-        "paragraph_gap": "16px",
-        "note": "Do NOT use 80-120px section padding — that is SaaS/startup spacing. 64px is the maximum."
+        "paragraph_gap": "16px"
       },
 
       "borders_and_radius": {
-        "border_radius": "0px (preferred) to 2px (max)",
-        "divider": "1px solid #D0D7DE",
-        "column_separator": "1px solid #D0D7DE",
-        "no_card_borders": "cards not used in core content sections"
+        "border_radius": "0px preferred, 2px max",
+        "divider": "1px solid #D0D7DE"
       },
 
       "shadows": {
         "default": "none",
         "subtle_allowed": "0 1px 3px rgba(0,0,0,0.08)",
-        "forbidden": ["box-shadow with blur > 8px", "spread shadows", "colored shadows", "layered shadows"]
+        "forbidden": ["blur > 8px", "spread shadows", "colored shadows", "layered shadows"]
       },
 
       "buttons": {
@@ -273,26 +280,24 @@
           "font_size": "14px",
           "font_weight": 600,
           "border_radius": "0px",
-          "border": "none",
-          "hover": "background #C4520A"
+          "hover_background": "#C4520A"
         },
         "secondary": {
           "background": "transparent",
-          "color": "#0D3349",
-          "border": "1px solid #0D3349",
+          "color": "#1f3c46",
+          "border": "1px solid #1f3c46",
           "padding": "11px 24px",
-          "hover": "background #0D3349, color white"
+          "hover": "background #1f3c46, color white"
         },
         "text-link": {
-          "style": "plain text, no button shape",
-          "color": "#0D3349",
+          "color": "#1f3c46",
           "decoration": "none default, underline on hover",
           "prefix": "→ (optional)"
         }
       },
 
       "visual_tone": ["corporate", "industrial", "trustworthy", "restrained", "Scandinavian"],
-      "anti_tone": ["playful", "startup", "SaaS", "trendy", "marketing-heavy", "experimental"]
+      "anti_tone": ["playful", "startup", "SaaS", "trendy", "marketing-heavy"]
     },
 
     "imagery": {
@@ -316,7 +321,6 @@
       "forbidden": [
         "illustrations",
         "abstract shapes or patterns",
-        "startup-style icons as hero visuals",
         "generic business stock photography",
         "3D render product mockups",
         "emoji or cartoon elements"
@@ -325,33 +329,33 @@
 
     "strict_constraints": [
       "no gradients anywhere",
-      "no bright or saturated colors outside accent",
+      "no bright or saturated colors outside accent (#E8610A)",
       "no startup-style UI patterns",
-      "no playful illustrations",
       "no hero without a background image",
       "no card layouts outside industries-grid section",
       "no centered hero text",
       "no multiple CTAs in hero",
-      "no excessive whitespace — section padding max 64px",
+      "section padding max 64px",
       "no decorative-only sections",
       "no border radius greater than 2px",
       "no box shadows with blur greater than 8px",
-      "no web fonts — use system font stack only",
+      "no web fonts",
       "no icons in value-columns section",
-      "no thumbnail images in insights-list"
+      "no thumbnail images in insights-list",
+      "no logo in footer"
     ],
 
     "final_check": [
       "Does it look like a corporate industrial company, not a tech startup?",
-      "Is content the main focus, not UI decoration?",
-      "Are colors restricted to the defined token set?",
+      "Is the header always #1f3c46 regardless of scroll position?",
+      "Are all H2 and block title colors #325c6d?",
+      "Is the footer background #325c6d with no logo?",
+      "Is the header item order correct: logo → Insights → Solutions → Products → Industries → Customers → Sustainability → [spacer] → Contact us → Global - EN?",
+      "Are Products, Industries, Customers, Sustainability rendered as disabled (non-clickable) links?",
       "Is every section serving a named business purpose?",
-      "Is all photography real industrial context (or approved CC0 fallback)?",
-      "Is section padding 64px or less?",
-      "Is the hero left-aligned with a single orange CTA?",
+      "Is the hero left-aligned with a single orange CTA and a background image?",
       "Are cards absent from all non-grid sections?",
-      "Is the header always dark blue (#0D3349) regardless of scroll position?",
-      "Is the footer dark-background with 4-column layout?"
+      "Is section padding 64px or less?"
     ]
   }
 }
